@@ -1,8 +1,13 @@
 package dev.mixi
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
+import net.minecraft.init.Items
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraftforge.client.event.ModelRegistryEvent
+import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.Mod.EventHandler
@@ -14,6 +19,7 @@ import org.apache.logging.log4j.Logger
 @Mod(modid = MixiMod.MOD_ID, name = MixiMod.NAME, version = MixiMod.VERSION)
 @Mod.EventBusSubscriber
 class MixiMod {
+    private lateinit var logger: Logger
 
     @EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
@@ -23,7 +29,7 @@ class MixiMod {
     @EventHandler
     fun init(event: FMLInitializationEvent) {
         // some example code
-        logger!!.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName())
+        logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName())
     }
 
     companion object {
@@ -31,18 +37,25 @@ class MixiMod {
         const val NAME = "Mixi Mod"
         const val VERSION = "1.0"
 
-        private var logger: Logger? = null
 
         @JvmStatic
         @SubscribeEvent
-        fun registerItems(e: RegistryEvent.Register<Item>) {
-            logger?.info("register item")
+        fun registerItems(event: RegistryEvent.Register<Item>) {
+            var tabs: CreativeTabs = object : CreativeTabs("mitenerod") {
+                override fun getTabIconItem(): ItemStack {
+                    return ItemStack(Items.APPLE)
+                }
+            }
+            event.registry.register(MiteneRod.setCreativeTab(tabs))
         }
 
         @JvmStatic
         @SubscribeEvent
-        fun registerModel(e: ModelRegistryEvent) {
-            logger?.info("register model")
+        fun registerModel(event: ModelRegistryEvent) {
+            ModelLoader.setCustomModelResourceLocation(
+                    MiteneRod,
+                    0,
+                    ModelResourceLocation(MiteneRod.registryName, "inventory"))
         }
     }
 }
