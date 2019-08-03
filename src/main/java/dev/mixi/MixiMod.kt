@@ -1,4 +1,4 @@
-package com.example.examplemod
+package dev.mixi
 
 import net.minecraft.init.Blocks
 import net.minecraft.item.Item
@@ -11,9 +11,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.Logger
 
-@Mod(modid = ExampleMod.MODID, name = ExampleMod.NAME, version = ExampleMod.VERSION)
+@Mod(modid = MixiMod.MOD_ID, name = MixiMod.NAME, version = MixiMod.VERSION)
 @Mod.EventBusSubscriber
-class ExampleMod {
+class MixiMod {
 
     @EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
@@ -27,8 +27,8 @@ class ExampleMod {
     }
 
     companion object {
-        const val MODID = "examplemod"
-        const val NAME = "Example Mod"
+        const val MOD_ID = "miximod"
+        const val NAME = "Mixi Mod"
         const val VERSION = "1.0"
 
         private var logger: Logger? = null
