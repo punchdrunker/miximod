@@ -23,13 +23,13 @@ class MixiMod {
 
     @EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
-        logger = event.getModLog()
+        logger = event.modLog
     }
 
     @EventHandler
     fun init(event: FMLInitializationEvent) {
         // some example code
-        logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName())
+        logger.info("DIRT BLOCK >> {}", Blocks.DIRT.registryName)
     }
 
     companion object {
@@ -41,7 +41,7 @@ class MixiMod {
         @JvmStatic
         @SubscribeEvent
         fun registerItems(event: RegistryEvent.Register<Item>) {
-            var tabs: CreativeTabs = object : CreativeTabs("mitenerod") {
+            val tabs: CreativeTabs = object : CreativeTabs("mitenerod") {
                 override fun getTabIconItem(): ItemStack {
                     return ItemStack(Items.APPLE)
                 }
@@ -55,7 +55,7 @@ class MixiMod {
             ModelLoader.setCustomModelResourceLocation(
                     MiteneRod,
                     0,
-                    ModelResourceLocation(MiteneRod.registryName, "inventory"))
+                    ModelResourceLocation(MiteneRod.registryName!!, "inventory"))
         }
     }
 }
