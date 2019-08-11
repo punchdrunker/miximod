@@ -1,5 +1,6 @@
 package dev.mixi
 
+import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import org.apache.logging.log4j.Logger
+import org.jline.utils.Log
 
 @Mod(modid = MixiMod.MOD_ID, name = MixiMod.NAME, version = MixiMod.VERSION)
 @Mod.EventBusSubscriber
@@ -56,6 +58,12 @@ class MixiMod {
                     MiteneRod,
                     0,
                     ModelResourceLocation(MiteneRod.registryName!!, "inventory"))
+        }
+
+        @JvmStatic
+        @SubscribeEvent
+        fun regBlock(event: RegistryEvent.Register<Block>) {
+            Log.info("REGISTER BLOCK")
         }
     }
 }
