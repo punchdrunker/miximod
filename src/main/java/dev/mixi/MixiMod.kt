@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.Item
+import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.client.model.ModelLoader
@@ -30,7 +31,6 @@ class MixiMod {
 
     @EventHandler
     fun init(event: FMLInitializationEvent) {
-        // some example code
         logger.info("DIRT BLOCK >> {}", Blocks.DIRT.registryName)
     }
 
@@ -39,16 +39,21 @@ class MixiMod {
         const val NAME = "Mixi Mod"
         const val VERSION = "1.0"
 
-
         @JvmStatic
         @SubscribeEvent
         fun registerItems(event: RegistryEvent.Register<Item>) {
-            val tabs: CreativeTabs = object : CreativeTabs("mitenerod") {
+            val tab: CreativeTabs = object : CreativeTabs("mitenerod") {
                 override fun getTabIconItem(): ItemStack {
                     return ItemStack(Items.APPLE)
                 }
             }
-            event.registry.register(MiteneRod.setCreativeTab(tabs))
+            event.registry.registerAll(
+                    MiteneRod.setCreativeTab(tab),
+                    ItemBlock(MixiBlock)
+                            .setRegistryName(MixiBlock.registryName)
+                            .setUnlocalizedName("mixiblock")
+                            .setCreativeTab(tab)
+            )
         }
 
         @JvmStatic
@@ -57,13 +62,19 @@ class MixiMod {
             ModelLoader.setCustomModelResourceLocation(
                     MiteneRod,
                     0,
-                    ModelResourceLocation(MiteneRod.registryName!!, "inventory"))
+                    ModelResourceLocation(MiteneRod.registryName!!, "inventory")
+            )
+            ModelLoader.setCustomModelResourceLocation(
+                    Item.getItemFromBlock(MixiBlock),
+                    0,
+                    ModelResourceLocation(MixiBlock.registryName!!, "inventory")
+            )
         }
 
         @JvmStatic
         @SubscribeEvent
-        fun regBlock(event: RegistryEvent.Register<Block>) {
-            Log.info("REGISTER BLOCK")
+        fun registerBlock(event: RegistryEvent.Register<Block>) {
+            event.registry.registerAll(MixiBlock)
         }
     }
 }

@@ -5,8 +5,8 @@ import net.minecraft.util.ResourceLocation
 
 object MiteneRod: Item() {
     init {
-        this.maxStackSize = 1
-        this.unlocalizedName = "mitenerod"
-        this.registryName = ResourceLocation(MixiMod.MOD_ID, "mitenerod")
+        maxStackSize = 1
+        unlocalizedName = "mitenerod"
+        registryName = ResourceLocation(MixiMod.MOD_ID, "mitenerod")
     }
 }
