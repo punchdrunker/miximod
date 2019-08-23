@@ -47,12 +47,14 @@ class MixiMod {
                     return ItemStack(Items.APPLE)
                 }
             }
+
             event.registry.registerAll(
                     MiteneRod.setCreativeTab(tab),
-                    ItemBlock(MixiBlock)
-                            .setRegistryName(MixiBlock.registryName)
-                            .setUnlocalizedName("mixiblock")
-                            .setCreativeTab(tab)
+                    ItemBlock(MixiBlock.setCreativeTab(tab))
+                            .setRegistryName(MixiBlock.registryName),
+                    ItemBlock(KotlinBlock.setCreativeTab(tab))
+                            .setRegistryName(KotlinBlock.registryName)
+
             )
         }
 
@@ -69,12 +71,21 @@ class MixiMod {
                     0,
                     ModelResourceLocation(MixiBlock.registryName!!, "inventory")
             )
+            ModelLoader.setCustomModelResourceLocation(
+                    Item.getItemFromBlock(KotlinBlock),
+                    0,
+                    ModelResourceLocation(KotlinBlock.registryName!!, "inventory")
+
+            )
         }
 
         @JvmStatic
         @SubscribeEvent
         fun registerBlock(event: RegistryEvent.Register<Block>) {
-            event.registry.registerAll(MixiBlock)
+            event.registry.registerAll(
+                    MixiBlock,
+                    KotlinBlock
+            )
         }
     }
 }
